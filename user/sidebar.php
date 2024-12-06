@@ -28,12 +28,12 @@
             transition: transform 0.3s ease, visibility 0.3s ease;
             z-index: 1000;
             box-shadow: 5px 0 15px rgba(0,0,0,0.1);
-            visibility: visible; /* ใช้ควบคุมการแสดงผล */
-            transform: translateX(0); /* แสดง Sidebar */
+            visibility: visible;
+            transform: translateX(0);
         }
         .sidebar-collapsed {
-            visibility: hidden; /* ซ่อน Sidebar */
-            transform: translateX(-250px); /* ย้าย Sidebar ออก */
+            visibility: hidden;
+            transform: translateX(-250px);
         }
 
         .toggle-btn {
@@ -71,11 +71,11 @@
 
         .main-content {
             padding: 20px;
-            margin-left: 250px; /* ระยะห่างเมื่อ Sidebar เปิด */
+            margin-left: 250px;
             transition: margin-left 0.3s ease, width 0.3s ease;
         }
         .main-content-full {
-            margin-left: 0; /* ระยะห่างเมื่อ Sidebar ปิด */
+            margin-left: 0;
         }
 
         .dashboard-card {
@@ -94,29 +94,23 @@
 
     <div class="sidebar" id="sidebar">
         <ul class="menu-list">
-            <li class="active">
+            <li onclick="location.href='home.php'; setActive(this)">
                 <i class="bi bi-house"></i>แดชบอร์ด
             </li>
-            <li>
-                <i class="bi bi-gear"></i>จัดการข้อมูลพื้นฐาน
-            </li>
-            <li onclick="location.href='saveproduct.php'">
+            <li onclick="location.href='saveproduct.php'; setActive(this)">
                 <i class="bi bi-clipboard-plus"></i>บันทึกคำสั่งผลิต
             </li>
-            <li>
+            <li onclick="setActive(this)">
                 <i class="bi bi-cart-plus"></i>สั่งผลิต
             </li>
-            <li>
+            <li onclick="setActive(this)">
                 <i class="bi bi-box"></i>สถานีแผนกดิบ
             </li>
-            <li>
+            <li onclick="setActive(this)">
                 <i class="bi bi-fire"></i>สถานีแผนกอบ
             </li>
-            <li>
+            <li onclick="setActive(this)">
                 <i class="bi bi-egg"></i>สถานีแผนกสุก
-            </li>
-            <li>
-                <i class="bi bi-file-earmark-text"></i>รายงาน
             </li>
             <li onclick="location.href='logout.php'" class="text-danger">
                 <i class="bi bi-box-arrow-right"></i>ออกจากระบบ
@@ -124,38 +118,20 @@
         </ul>
     </div>
 
-    <div class="main-content" id="mainContent">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="dashboard-card">
-                    <h5>คำสั่งผลิตทั้งหมด</h5>
-                    <h2 class="text-primary">45</h2>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="dashboard-card">
-                    <h5>กำลังดำเนินการ</h5>
-                    <h2 class="text-warning">12</h2>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="dashboard-card">
-                    <h5>เสร็จสิ้น</h5>
-                    <h2 class="text-success">33</h2>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
         document.getElementById('sidebarToggle').addEventListener('click', function() {
             const sidebar = document.getElementById('sidebar');
             const mainContent = document.getElementById('mainContent');
-            
-            // สลับสถานะของ Sidebar
             sidebar.classList.toggle('sidebar-collapsed');
             mainContent.classList.toggle('main-content-full');
         });
+
+        // ฟังก์ชันสำหรับกำหนดเมนูที่แอคทีฟ
+        function setActive(element) {
+            const menuItems = document.querySelectorAll('.menu-list li');
+            menuItems.forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

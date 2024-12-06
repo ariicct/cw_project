@@ -85,19 +85,48 @@
             padding: 20px;
             margin-bottom: 20px;
         }
+        .submenu {
+            list-style-type: none;
+            padding-left: 30px;
+            display: none;
+        }
+
+        .submenu li {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .submenu li:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
     </style>
 </head>
 <body>
-    <button class="toggle-btn" id="sidebarToggle">
+<button class="toggle-btn" id="sidebarToggle">
         <i class="bi bi-list"></i>
     </button>
 
     <div class="sidebar" id="sidebar">
         <ul class="menu-list">
-            <li class="active">
-                <i class="bi bi-house"></i>แดชบอร์ด
+            
+            <li>
+                <i class="bi bi-gear"></i>จัดการข้อมูลพื้นฐาน
+                <ul class="submenu" id="customerSubMenu">
+                                    <li onclick="location.href='../admin/mn_user.php'">
+                                        <i class="bi bi-person"></i> ข้อมูลผู้ใช้งาน
+                                    </li>
+                                    <li onclick="location.href='add_customer.php'">
+                                        <i class="bi bi-person-plus"></i> ข้อมูลลูกค้า
+                                    </li>
+                                    <li onclick="location.href='edit_customer.php'">
+                                        <i class="bi bi-pencil-square"></i> รายการผลิต
+                                    </li>
+                                    <li onclick="location.href='edit_customer.php'">
+                                        <i class="bi bi-box"></i> รายการสินค้า
+                                    </li>
+                </ul>
             </li>
-            <li onclick="location.href='saveproduct.php'">
+            <li onclick="location.href='../admin/mn_saveproduct.php'">
                 <i class="bi bi-clipboard-plus"></i>บันทึกคำสั่งผลิต
             </li>
             <li>
@@ -112,11 +141,15 @@
             <li>
                 <i class="bi bi-egg"></i>สถานีแผนกสุก
             </li>
+            <li>
+                <i class="bi bi-file-earmark-text"></i>รายงาน
+            </li>
             <li onclick="location.href='logout.php'" class="text-danger">
                 <i class="bi bi-box-arrow-right"></i>ออกจากระบบ
             </li>
         </ul>
     </div>
+
 
     <div class="main-content" id="mainContent">
         <div class="row">
@@ -149,6 +182,21 @@
             // สลับสถานะของ Sidebar
             sidebar.classList.toggle('sidebar-collapsed');
             mainContent.classList.toggle('main-content-full');
+        });
+
+        document.getElementById('sidebarToggle').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            
+            // สลับสถานะของ Sidebar
+            sidebar.classList.toggle('sidebar-collapsed');
+            mainContent.classList.toggle('main-content-full');
+        });
+
+        // Toggle customer submenu visibility
+        document.querySelector('.menu-list li').addEventListener('click', function() {
+            const submenu = document.getElementById('customerSubMenu');
+            submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

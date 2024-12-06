@@ -16,9 +16,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
+        // บันทึกข้อมูลผู้ใช้ลงใน session
         $_SESSION['logged_in'] = true;
         $_SESSION['user'] = $result->fetch_assoc();
-        header("Location: home.php"); // เปลี่ยนเป็นหน้า home.php เมื่อเข้าสู่ระบบสำเร็จ
+
+        // ตรวจสอบตำแหน่งของผู้ใช้
+        if ($_SESSION['user']['User_role'] == 'admin') {
+            // ถ้าเป็นแอดมิน ไปที่หน้า admin_home.php
+            header("Location: http://localhost/cw_project/admin/admin_home.php");
+        } else {
+            // ถ้าเป็นพนักงาน ไปที่หน้า user_home.php
+            header("Location: http://localhost/cw_project/user/home.php");
+        }
         exit();
     } else {
         $error = "ชื่อผู้ใช้/อีเมล หรือรหัสผ่านไม่ถูกต้อง";
